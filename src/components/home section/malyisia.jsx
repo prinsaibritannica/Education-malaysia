@@ -161,62 +161,67 @@ const EducationSystem = () => {
   ];
 
   return (
-    <div className="py-14 md:py-16 bg-gradient-to-br from-slate-50 to-slate-100 mt-[-1rem]">
+    <div className="py-10 md:py-16 bg-gradient-to-br from-slate-50 to-slate-100 mt-[-1rem]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4 tracking-tight">
+        {/* Main Title - Responsive text sizes */}
+        <div className="text-center mb-8 md:mb-10">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 md:mb-4 tracking-tight">
             Education System in Malaysia
           </h1>
-          <p className="text-slate-600 text-base max-w-6xl mx-auto leading-relaxed px-4 text-justify">
+          <p className="text-slate-600 text-sm sm:text-base max-w-6xl mx-auto leading-relaxed px-2 sm:px-4 text-justify">
             Malaysia's education system offers accessible, high-quality learning from early childhood to higher education, guided by strong national standards and global benchmarks. Both Malaysian and international students benefit from structured academic pathways, modern teaching approaches, and flexible opportunities for lifelong learning. With its focus on innovation and inclusivity, Malaysia continues to grow as one of Asia's leading education hubs.
           </p>
         </div>
 
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-semibold text-slate-800 tracking-tight">
+        {/* Subtitle - Responsive */}
+        <div className="text-center mb-5 md:mb-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-slate-800 tracking-tight">
             Getting Formal Education
           </h2>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4">
+        {/* Cards - Properly aligned grid with equal heights */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
           {stages.map((stage) => {
             const Icon = stage.icon;
             const isHigherEd = stage.title === "Higher Education";
             return (
               <div
                 key={stage.title}
-                className={`flex-1 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${isHigherEd ? "lg:flex-[1.5]" : ""}`}
+                className={`rounded-xl shadow-md bg-white transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col ${isHigherEd ? "sm:col-span-2 lg:col-span-1" : ""}`}
               >
-                <div className={`bg-gradient-to-br ${stage.color} p-5 text-white`}>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
-                      <Icon className="w-6 h-6" />
+                {/* Card Header - White title */}
+                <div className={`bg-gradient-to-br ${stage.color} p-4 md:p-5 rounded-t-xl`}>
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <div className="bg-white/20 p-1.5 md:p-2 rounded-lg backdrop-blur-sm">
+                      <Icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                     </div>
-                    <h2 className="text-lg font-bold">{stage.title}</h2>
+                    <h2 className="text-base md:text-lg font-bold text-white">{stage.title}</h2>
                   </div>
                 </div>
 
-                <div className="bg-white p-5">
+                {/* Card Body - Responsive padding and text */}
+                <div className="bg-white p-4 md:p-5 flex-grow rounded-b-xl">
                   {!isHigherEd ? (
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5 md:space-y-2">
                       {stage.items?.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-slate-700 group">
-                          <span className="text-slate-400 mt-1 group-hover:text-slate-600 transition-colors">•</span>
+                        <li key={idx} className="flex items-start gap-2 text-slate-700 group text-sm md:text-base">
+                          <span className="text-slate-400 mt-0.5 md:mt-1 group-hover:text-slate-600 transition-colors">•</span>
                           <span className="group-hover:text-slate-900 transition-colors">{item}</span>
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <div className="space-y-5">
+                    <div className="space-y-4 md:space-y-5">
                       {stage.sections?.map((section, idx) => (
                         <div key={idx}>
-                          <h3 className="font-semibold text-slate-900 mb-2 pb-1 border-b border-slate-200">
+                          <h3 className="font-semibold text-slate-900 mb-1.5 md:mb-2 pb-1 border-b border-slate-200 text-sm md:text-base">
                             {section.title}
                           </h3>
-                          <ul className="space-y-2">
+                          <ul className="space-y-1.5 md:space-y-2">
                             {section.items.map((item, itemIdx) => (
-                              <li key={itemIdx} className="flex items-start gap-2 text-slate-700 group">
-                                <span className="text-slate-400 mt-1 group-hover:text-slate-600 transition-colors">•</span>
+                              <li key={itemIdx} className="flex items-start gap-2 text-slate-700 group text-sm md:text-base">
+                                <span className="text-slate-400 mt-0.5 md:mt-1 group-hover:text-slate-600 transition-colors">•</span>
                                 <span className="group-hover:text-slate-900 transition-colors">{item}</span>
                               </li>
                             ))}
@@ -378,7 +383,7 @@ const WhyMalaysia = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="relative py-8 lg:py-10 px-4 overflow-hidden mt-[-1.5rem]">
+      <section className="relative py-8 sm:my-4 px-4 overflow-hidden ">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-amber-50 opacity-70"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-8">

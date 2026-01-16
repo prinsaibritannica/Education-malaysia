@@ -106,7 +106,7 @@ export default function UniversityCardsSlider() {
   };
 
   return (
-    <div className="relative px-6 py-10 bg-gradient-to-b from-blue-50 to-white">
+    <div className="relative px-6 py-4 bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-black mb-6">
           🎓 Top Trending Universities <span className="text-blue-600">in Malaysia</span>
@@ -162,7 +162,7 @@ export default function UniversityCardsSlider() {
 
               return (
                 <SwiperSlide key={uniId}>
-                  <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden border border-gray-100">
+                  <div className="group mb-4 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden border border-gray-100">
                     {/* University Image */}
                     <div className="h-48 overflow-hidden relative bg-gray-100">
                       <img

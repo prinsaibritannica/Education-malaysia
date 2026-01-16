@@ -695,7 +695,7 @@ h2, h3, h4 {
 
 /* Main Section Headings (h2) */
 .prose h2,
-h2 {
+h2:not(.text-white) {
   font-size: 1.875rem !important;
   font-weight: 700 !important;
   color: #111827 !important;
@@ -704,9 +704,15 @@ h2 {
   padding: 0 !important;
 }
 
+/* Allow white text on h2 when explicitly set */
+h2.text-white,
+.text-white h2 {
+  color: white !important;
+}
+
 /* Sub Section Headings (h3) */
 .prose h3,
-h3 {
+h3:not(.text-white) {
   font-size: 1.125rem !important;  /* Normal size (18px) */
   font-weight: 600 !important;     /* Weight bhi kam karo */
   color: #111827 !important;
@@ -715,15 +721,25 @@ h3 {
   padding: 0 !important;
 }
 
+/* Allow white text on h3 when explicitly set */
+h3.text-white,
+.text-white h3 {
+  color: white !important;
+}
+
 /* Minor Section Headings (h4) */
 .prose h4,
-h4 {
+h4:not(.text-white) {
   font-size: 1.25rem !important;
   font-weight: 600 !important;
   color: #1f2937 !important;
   margin-top: 0.5rem !important;
-  margin-bottom: 0.75rem !important;
-  padding: 0 !important;
+}
+
+/* Allow white text on h4 when explicitly set */
+h4.text-white,
+.text-white h4 {
+  color: white !important;
 }
 
 /* Remove any conflicting rules */
