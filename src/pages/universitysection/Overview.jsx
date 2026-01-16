@@ -925,7 +925,7 @@ const Overview = () => {
   // ✅ FIX: Agar koi valid section nahi hai
   if (validSections.length === 0) {
     return (
-      <div className="space-y-1 px-1 md:px-0 py-8 text-black bg-white">
+      <div className="space-y-1 px-1 md:px-0 py-4 text-black bg-white">
         <div className="text-center py-10">
           <div className="p-6 bg-gray-50 rounded-lg inline-block">
             <p className="text-gray-500 text-lg mb-2">
@@ -947,7 +947,7 @@ const Overview = () => {
   }
 
   return (
-    <div className="space-y-1 px-1 md:px-0 py-8 text-black bg-white">
+    <div className="space-y-1 px-1 md:px-0 py-4 text-black bg-white">
       {/* First Section - Introduction */}
       {validSections[0] && (
         <div 
@@ -976,26 +976,29 @@ const Overview = () => {
 
       {/* Table of Contents - Only show if more than 1 section */}
       {validSections.length > 1 && (
-        <div className="bg-gray-50 rounded-lg px-10 my-4 shadow-sm">
-          <h2 className="text-xl font-bold text-blue-900 mb-4 border-l-4 border-blue-600 pl-3">
-            Table of Content
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 sm:p-4 my-3 sm:my-4 shadow-sm border border-blue-100">
+          <h2 className="text-sm sm:text-base font-bold text-blue-900 mb-2 sm:mb-3 border-l-3 border-blue-600 pl-2">
+            Table of Contents
           </h2>
-          <ol className="space-y-2 list-decimal list-inside">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2">
             {validSections.map((section, index) => {
               const sectionSlug = createSlug(section.title);
               return (
-                <li 
+                <div 
                   key={index}
-                  className="text-blue-700 hover:text-blue-900 cursor-pointer transition-colors duration-200 text-sm font-medium"
                   onClick={() => scrollToSection(index, sectionSlug)}
+                  className="flex items-center gap-2 bg-white rounded-md p-2 sm:p-2.5 cursor-pointer hover:bg-blue-50 hover:shadow-sm transition-all duration-200 group border border-gray-100 hover:border-blue-200"
                 >
-                  <span className="hover:underline text-black">
+                  <span className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold group-hover:bg-blue-700 transition-colors">
+                    {index + 1}
+                  </span>
+                  <span className="text-xs sm:text-sm text-gray-700 font-medium group-hover:text-blue-700 transition-colors line-clamp-1">
                     {section.title}
                   </span>
-                </li>
+                </div>
               );
             })}
-          </ol>
+          </div>
         </div>
       )}
 
