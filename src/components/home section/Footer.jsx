@@ -60,7 +60,7 @@ const Footer = () => {
               <img
                 src={logo}
                 alt="Education Malaysia"
-                className="w-56 sm:w-64 mb-3 brightness-110 drop-shadow-lg"
+                className="w-56 sm:w-64 mb-3 brightness-125 drop-shadow-lg"
               />
               <p className="text-white/80 text-sm max-w-md leading-relaxed">
                 Guiding students with trusted counseling, scholarships, and admission support to build successful careers through Malaysian education.
