@@ -19,6 +19,12 @@ import {
 } from "../../pages/universitysection/universitypopform";
 import { API_URL } from "../../config";
 
+// Swiper imports
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+
 export default function UniversityCardsSlider() {
   const navigate = useNavigate();
   const [universities, setUniversities] = useState([]);
@@ -125,191 +131,201 @@ export default function UniversityCardsSlider() {
           <span className="text-blue-600">in Malaysia</span>
         </h2>
 
-        {/* Grid Layout instead of Swiper */}
+        {/* Slider Layout */}
         {universities.length === 0 ? (
           <div className="h-56 flex items-center justify-center">
             <p className="text-gray-600">Loading universities...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {universities.map((uni, idx) => {
-              const uniId = uni.id || uni._id || idx;
-              const isExpanded = expandedCards.has(uniId);
-              const shortNote = uni.shortnote || "Explore this university.";
-              const shouldTruncate = shortNote.length > 100;
+          <div className="relative group/slider px-4">
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              spaceBetween={20}
+              slidesPerView={1}
+              navigation={true}
+              loop={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+              }}
+              className="!pb-6 [&_.swiper-button-next]:text-blue-600 [&_.swiper-button-prev]:text-blue-600 [&_.swiper-button-next]:after:text-lg [&_.swiper-button-prev]:after:text-lg [&_.swiper-button-next]:w-10 [&_.swiper-button-next]:h-10 [&_.swiper-button-next]:bg-white [&_.swiper-button-next]:rounded-full [&_.swiper-button-next]:shadow-md [&_.swiper-button-prev]:w-10 [&_.swiper-button-prev]:h-10 [&_.swiper-button-prev]:bg-white [&_.swiper-button-prev]:rounded-full [&_.swiper-button-prev]:shadow-md"
+            >
+              {universities.map((uni, idx) => {
+                const uniId = uni.id || uni._id || idx;
+                const isExpanded = expandedCards.has(uniId);
+                const shortNote = uni.shortnote || "Explore this university.";
+                const shouldTruncate = shortNote.length > 100;
 
-              return (
-                <div key={uniId} className="h-full">
-                  <div className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 overflow-hidden border border-gray-100 flex flex-col h-full">
-                    {/* University Image */}
-                    <div className="h-48 overflow-hidden relative bg-gray-100 flex-shrink-0">
-                      <img
-                        src={logoFor(uni)}
-                        alt={uni.name || "University Logo"}
-                        onError={(e) => {
-                          e.target.src =
-                            "https://via.placeholder.com/200x200?text=No+Logo";
-                        }}
-                        className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-110"
-                      />
+                return (
+                  <SwiperSlide key={uniId} className="h-auto pb-4">
+                    <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full mx-1">
+                      {/* University Image */}
+                      <div className="h-48 overflow-hidden relative bg-gray-100 flex-shrink-0">
+                        <img
+                          src={logoFor(uni)}
+                          alt={uni.name || "University Logo"}
+                          onError={(e) => {
+                            e.target.src =
+                              "https://via.placeholder.com/200x200?text=No+Logo";
+                          }}
+                          className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-110"
+                        />
 
-                      {/* Overlay Icons */}
-                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                          <div className="flex space-x-2">
-                            <button
-                              onClick={() => toggleLike(uniId)}
-                              className={`p-2 rounded-full backdrop-blur-sm transition-all duration-200 ${
-                                likedUniversities.has(uniId)
-                                  ? "bg-red-500 text-white"
-                                  : "bg-white/20 text-white hover:bg-white/30"
-                              }`}
+                        {/* Overlay Icons */}
+                        <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                            <div className="flex space-x-2">
+                              {/* Overlay actions can go here */}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Type Badge */}
+                        {uni.type && (
+                          <div className="absolute top-4 left-4">
+                            <span
+                              className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getUniversityTypeColor(uni.type)}`}
                             >
-                              <Heart
-                                className={`w-4 h-4 ${likedUniversities.has(uniId) ? "fill-current" : ""}`}
-                              />
-                            </button>
-                            <button className="p-2 rounded-full bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm transition-all duration-200">
-                              <Share2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Type Badge */}
-                      {uni.type && (
-                        <div className="absolute top-4 left-4">
-                          <span
-                            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${getUniversityTypeColor(uni.type)}`}
-                          >
-                            <span className="mr-1">
-                              {getUniversityTypeIcon(uni.type)}
+                              <span className="mr-1">
+                                {getUniversityTypeIcon(uni.type)}
+                              </span>
+                              {uni.type.charAt(0).toUpperCase() +
+                                uni.type.slice(1)}
                             </span>
-                            {uni.type.charAt(0).toUpperCase() +
-                              uni.type.slice(1)}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Ranking Badge */}
-                      {uni.ranking && (
-                        <div className="absolute top-4 right-4">
-                          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-                            #{uni.ranking}
                           </div>
-                        </div>
-                      )}
-                    </div>
+                        )}
 
-                    {/* Card Content */}
-                    <div className="p-6 flex flex-col flex-grow">
-                      <h3
-                        onClick={() => navigate(`/university/${uni.uname}`)}
-                        className="font-bold text-gray-800 text-xl group-hover:text-blue-600 mb-3 line-clamp-2 min-h-[3.5rem] cursor-pointer transition-all"
-                      >
-                        {uni.name}
-                      </h3>
-
-                      <div className="flex items-center text-gray-600 mb-2">
-                        <MapPin className="w-4 h-4 mr-2 text-blue-500" />
-                        <span className="text-sm font-medium">
-                          {uni.location || "Malaysia"}
-                        </span>
-                      </div>
-
-                      {/* Description with Show More/Less */}
-                      <div className="mb-4">
-                        <p
-                          className={`text-gray-600 text-sm leading-relaxed ${!isExpanded && shouldTruncate ? "line-clamp-2" : ""}`}
-                        >
-                          {shortNote}
-                        </p>
-                        {shouldTruncate && (
-                          <button
-                            onClick={() => toggleExpand(uniId)}
-                            className="text-blue-600 hover:text-blue-700 text-sm font-medium mt-1 flex items-center gap-1 transition-colors"
-                          >
-                            {isExpanded ? (
-                              <>
-                                Show Less <ChevronUp className="w-4 h-4" />
-                              </>
-                            ) : (
-                              <>
-                                Show More <ChevronDown className="w-4 h-4" />
-                              </>
-                            )}
-                          </button>
+                        {/* Ranking Badge */}
+                        {uni.ranking && (
+                          <div className="absolute top-4 right-4">
+                            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                              #{uni.ranking}
+                            </div>
+                          </div>
                         )}
                       </div>
 
-                      {/* Stats Grid */}
-                      <div className="grid grid-cols-3 gap-4 mb-6 mt-auto">
-                        <div className="text-center p-3 bg-blue-50 rounded-xl">
-                          <BookOpen className="w-5 h-5 text-blue-600 mx-auto mb-1" />
-                          <div className="text-lg font-bold text-blue-600">
-                            {uni.active_programs_count || 0}
-                          </div>
-                          <div className="text-xs text-gray-600">Programs</div>
-                        </div>
-                        <div className="text-center p-3 bg-green-50 rounded-xl">
-                          <Eye className="w-5 h-5 text-green-600 mx-auto mb-1" />
-                          <div className="text-lg font-bold text-green-600">
-                            {uni.click || 0}
-                          </div>
-                          <div className="text-xs text-gray-600">Views</div>
-                        </div>
-                        <div className="text-center p-3 bg-yellow-50 rounded-xl">
-                          <Star className="w-5 h-5 text-yellow-600 mx-auto mb-1 fill-current" />
-                          <div className="text-lg font-bold text-yellow-600">
-                            {uni.rating
-                              ? parseFloat(uni.rating).toFixed(1)
-                              : "0.0"}
-                          </div>
-                          <div className="text-xs text-gray-600">Rating</div>
-                        </div>
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="space-y-3 mt-4">
-                        <button
-                          onClick={() =>
-                            navigate(`/university/${uni.uname}`, {
-                              state: { scrollToTop: true },
-                            })
-                          }
-                          className="cursor-pointer w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center group"
+                      {/* Card Content */}
+                      <div className="p-4 flex flex-col flex-grow">
+                        <h3
+                          onClick={() => navigate(`/university/${uni.uname}`)}
+                          className="font-bold text-gray-800 text-xl group-hover:text-blue-600 mb-3 line-clamp-2 min-h-[3.5rem] cursor-pointer transition-all"
                         >
-                          <span>View Details</span>
-                          <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                        </button>
+                          {uni.name}
+                        </h3>
 
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            onClick={() => handleFeeStructure(uni)}
-                            className="cursor-pointer py-2 px-3 border-2 border-blue-200 text-blue-600 rounded-xl font-medium hover:bg-blue-50 transition-all duration-200 text-sm"
-                          >
-                            Fee Structure
-                          </button>
-                          <button
-                            onClick={() => handleBrochure(uni)}
-                            className="cursor-pointer py-2 px-3 border-2 border-green-200 text-green-600 rounded-xl font-medium hover:bg-green-50 transition-all duration-200 text-sm"
-                          >
-                            Brochure
-                          </button>
+                        <div className="flex items-center text-gray-600 mb-2">
+                          <MapPin className="w-4 h-4 mr-2 text-blue-500" />
+                          <span className="text-sm font-medium">
+                            {uni.location || "Malaysia"}
+                          </span>
                         </div>
 
-                        <button
-                          onClick={handleCompare}
-                          className="cursor-pointer w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all duration-200 text-sm"
-                        >
-                          Compare Universities
-                        </button>
+                        {/* Description with Show More/Less */}
+                        <div className="mb-4">
+                          <p
+                            className={`text-gray-600 text-sm leading-relaxed ${!isExpanded && shouldTruncate ? "line-clamp-2" : ""}`}
+                          >
+                            {shortNote}
+                          </p>
+                          {shouldTruncate && (
+                            <button
+                              onClick={() => toggleExpand(uniId)}
+                              className="text-blue-600 hover:text-blue-700 text-sm font-medium mt-1 flex items-center gap-1 transition-colors"
+                            >
+                              {isExpanded ? (
+                                <>
+                                  Show Less <ChevronUp className="w-4 h-4" />
+                                </>
+                              ) : (
+                                <>
+                                  Show More <ChevronDown className="w-4 h-4" />
+                                </>
+                              )}
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-3 gap-3 mb-4 mt-auto">
+                          <div className="text-center p-3 bg-blue-50 rounded-xl">
+                            <BookOpen className="w-5 h-5 text-blue-600 mx-auto mb-1" />
+                            <div className="text-lg font-bold text-blue-600">
+                              {uni.active_programs_count || 0}
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              Programs
+                            </div>
+                          </div>
+                          <div className="text-center p-3 bg-green-50 rounded-xl">
+                            <Eye className="w-5 h-5 text-green-600 mx-auto mb-1" />
+                            <div className="text-lg font-bold text-green-600">
+                              {uni.click || 0}
+                            </div>
+                            <div className="text-xs text-gray-600">Views</div>
+                          </div>
+                          <div className="text-center p-3 bg-yellow-50 rounded-xl">
+                            <Star className="w-5 h-5 text-yellow-600 mx-auto mb-1 fill-current" />
+                            <div className="text-lg font-bold text-yellow-600">
+                              {uni.rating
+                                ? parseFloat(uni.rating).toFixed(1)
+                                : "0.0"}
+                            </div>
+                            <div className="text-xs text-gray-600">Rating</div>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="space-y-2 mt-4">
+                          <button
+                            onClick={() =>
+                              navigate(`/university/${uni.uname}`, {
+                                state: { scrollToTop: true },
+                              })
+                            }
+                            className="cursor-pointer w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center group"
+                          >
+                            <span>View Details</span>
+                            <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                          </button>
+
+                          <div className="grid grid-cols-2 gap-2">
+                            <button
+                              onClick={() => handleFeeStructure(uni)}
+                              className="cursor-pointer py-2 px-3 border-2 border-blue-200 text-blue-600 rounded-xl font-medium hover:bg-blue-50 transition-all duration-200 text-sm"
+                            >
+                              Fee Structure
+                            </button>
+                            <button
+                              onClick={() => handleBrochure(uni)}
+                              className="cursor-pointer py-2 px-3 border-2 border-green-200 text-green-600 rounded-xl font-medium hover:bg-green-50 transition-all duration-200 text-sm"
+                            >
+                              Brochure
+                            </button>
+                          </div>
+
+                          <button
+                            onClick={handleCompare}
+                            className="cursor-pointer w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all duration-200 text-sm"
+                          >
+                            Compare Universities
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         )}
 

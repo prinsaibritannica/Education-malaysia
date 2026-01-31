@@ -1267,10 +1267,10 @@ const UniversityDetailPage = () => {
         {/* Header Section */}
 
         <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-6">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4">
             {/* Desktop Layout - Logo and Title Section */}
 
-            <div className="flex flex-row items-center justify-between gap-6 mb-6">
+            <div className="flex flex-row items-center justify-between gap-4 mb-4">
               {/* Logo + Info */}
 
               <div className="flex items-center gap-4 flex-row text-left">
@@ -1439,8 +1439,8 @@ const UniversityDetailPage = () => {
         {/* University Details Section */}
 
         <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 py-6 -mt-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <div className="max-w-7xl mx-auto px-3 sm:px-5 md:px-6 py-4 -mt-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Left Content (Cards + Study Options) */}
 
               <div className="col-span-2 space-y-4">
@@ -1519,10 +1519,10 @@ const UniversityDetailPage = () => {
                   {/* </div> */}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 -mt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 -mt-2">
                   {/* TOP LEFT: Accredited By - DYNAMIC */}
 
-                  <div className="bg-white rounded-xl shadow-sm p-5">
+                  <div className="bg-white rounded-xl shadow-sm p-4">
                     <div className="flex items-center gap-2 mb-4">
                       <FaBuilding className="text-blue-600 text-lg" />
 
@@ -1554,7 +1554,7 @@ const UniversityDetailPage = () => {
 
                   {/* Hostel Facility */}
 
-                  <div className="bg-white rounded-xl shadow-sm p-5">
+                  <div className="bg-white rounded-xl shadow-sm p-4">
                     <div className="flex items-center gap-2 mb-4">
                       <FaBed className="text-green-600 text-lg" />
 
@@ -1588,7 +1588,7 @@ const UniversityDetailPage = () => {
 
                   {/* Total Students */}
 
-                  <div className="bg-white rounded-xl shadow-sm p-5">
+                  <div className="bg-white rounded-xl shadow-sm p-4">
                     <div className="flex items-center gap-2 mb-4">
                       <FaUsers className="text-purple-600 text-lg" />
 
@@ -1656,7 +1656,7 @@ const UniversityDetailPage = () => {
 
                   {/* Contact Info - Desktop */}
 
-                  <div className="bg-white rounded-xl shadow-sm p-5">
+                  <div className="bg-white rounded-xl shadow-sm p-4">
                     <div className="flex items-center gap-2 mb-4">
                       <FaPhoneAlt className="text-orange-600 text-lg" />
 
@@ -1689,7 +1689,7 @@ const UniversityDetailPage = () => {
 
                 {/* Added Facilities section */}
 
-                <div className="mt-6 bg-white rounded-2xl shadow-md border border-gray-100 p-5 w-full">
+                <div className="mt-6 bg-white rounded-2xl shadow-md border border-gray-100 p-4 w-full">
                   <h3 className="text-md font-bold text-gray-900 mb-4">
                     Faculties:
                   </h3>
@@ -1712,7 +1712,7 @@ const UniversityDetailPage = () => {
               <div className="col-span-1 space-y-3">
                 {/* Action Buttons */}
 
-                <div className="bg-white rounded-xl shadow-md p-6 flex flex-col gap-3">
+                <div className="bg-white rounded-xl shadow-md p-4 flex flex-col gap-3">
                   <button
                     onClick={() => setIsOpen(true)}
                     className="w-full bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm font-semibold"
@@ -1746,7 +1746,7 @@ const UniversityDetailPage = () => {
                   </button>
                 </div>
 
-                <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="bg-white rounded-xl shadow-md p-4">
                   <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     Global Rankings
                   </h3>
@@ -1791,7 +1791,7 @@ const UniversityDetailPage = () => {
                 <div className="flex flex-col gap-4">
                   {/* Study Options */}
 
-                  <div className="bg-white rounded-xl shadow-sm p-6 w-full">
+                  <div className="bg-white rounded-xl shadow-sm p-4 w-full">
                     <h2 className="text-lg font-semibold mb-4">
                       Study Options
                     </h2>
@@ -1905,7 +1905,7 @@ const UniversityDetailPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.25 }}
-                className="bg-white rounded-xl p-6 shadow-md min-h-[400px]"
+                className="bg-white rounded-xl p-4 shadow-md min-h-[400px]"
               >
                 {renderTabContent()}
               </motion.div>
